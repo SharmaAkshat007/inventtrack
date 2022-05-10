@@ -1,0 +1,47 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  priceEach   Float
+  quantity    Int
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("product")
+}
+
+model Inventory {
+  id          Int       @id @default(autoincrement())
+  products    Product[]
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+  warehouseId Int
+  createdAT   DateTime  @default(now())
+  updatedAT   DateTime  @updatedAt
+
+  @@map("inventory")
+}
+
+model Warehouse {
+  id            Int         @id @default(autoincrement())
+  streetAddress String      @db.VarChar(255)
+  city          String      @db.VarChar(255)
+  state         String      @db.VarChar(255)
+  country       String      @db.VarChar(255)
+  pincode       String      @db.VarChar(255)
+  inventories   Inventory[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("warehouse")
+}
