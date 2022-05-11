@@ -12,6 +12,7 @@ router.post("/deleteInventoryItems", inventory.deleteInventoryItems);
 router.post("/assignWarehouse", inventory.assignWarehouse);
 
 // warehouse
+router.get("/getWarehouseByPinCode/:pinCode", warehouse.getWarehouseByPinCode);
 router.post("/createWarehouse", warehouse.createWarehouse);
 
 module.exports = router;

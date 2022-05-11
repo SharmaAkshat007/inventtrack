@@ -1,3 +1,5 @@
+const prisma = require("../prisma/client");
+
 const fetchAllInventory = async (req, res) => {
   res.status(200).json({
     ok: true,
